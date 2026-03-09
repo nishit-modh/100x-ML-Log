@@ -1,5 +1,6 @@
 # Membership Operators
 #"in" "not in"
+#checks either given element is a part of other element
 
 # in
 access_allowed = ["admin", "manager", "employee"]
