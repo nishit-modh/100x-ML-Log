@@ -13,6 +13,7 @@ if n <= 0:
     print("Enter positive number")
 else:
     for i in range(1, n +1):
+        # print(i*str(i)) # 2nd for loop can be avoided using this
         for j in range(i):
             print(i, end=" ")
         print()
