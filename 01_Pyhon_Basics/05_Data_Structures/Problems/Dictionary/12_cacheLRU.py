@@ -4,6 +4,51 @@
 # Example: Capacity 2. Put(1,1), Put(2,2), Get(1), Put(3,3).
 # Result: Key 2 is removed because 1 was recently accessed.
 
+# ===========================================
+# using pop() in dictionary
+# ===========================================
+# =========================================================
+# 12. LRU CACHE SIMULATION (FINAL VERSION)
+# =========================================================
+
+cache = {"1st": "alpha", "2nd": "beta", "3rd": "gamma"}
+N = 3
+
+while True:
+    print(f"\n--- Cache Status: {list(cache.keys())} ---")
+    action = input("Action (n: new/update, a: access, q: quit): ").lower()
+
+    if action == "q":
+        break
+
+    elif action == "n":
+        key = input("Enter key: ")
+        val = input("Enter value: ")
+
+        # LOGIC: If key exists, remove it first to "reset" position
+        if key in cache:
+            cache.pop(key)
+        # If key is new AND cache is full, evict the oldest
+        elif len(cache) >= N:
+            oldest = next(iter(cache))
+            cache.pop(oldest)
+            print(f"Evicted: {oldest}")
+
+        cache[key] = val
+        print(f"Stored: {key}")
+
+    elif action == "a":
+        key = input("Enter key to access: ")
+        if key in cache:
+            # THE "LRU SECRET": Pop and re-add to make it the NEWEST
+            value = cache.pop(key)
+            cache[key] = value
+            print(f"Value: {value}")
+        else:
+            print("Error: Key not found!")
+
+print(f"Final Cache State: {cache}")
+
 
 # ===========================================
 # Manual way - 1st attempt (Partially functional but incorrect and manual)
@@ -49,49 +94,3 @@
 #             lru = next_lru.pop(0)
 #         else:
 #             print("Invalid input.")
-
-
-# ===========================================
-# using pop() in dictionary - 
-# ===========================================
-# =========================================================
-# 12. LRU CACHE SIMULATION (FINAL VERSION)
-# =========================================================
-
-cache = {"1st": "alpha", "2nd": "beta", "3rd": "gamma"}
-N = 3
-
-while True:
-    print(f"\n--- Cache Status: {list(cache.keys())} ---")
-    action = input("Action (n: new/update, a: access, q: quit): ").lower()
-
-    if action == "q":
-        break
-
-    elif action == "n":
-        key = input("Enter key: ")
-        val = input("Enter value: ")
-        
-        # LOGIC: If key exists, remove it first to "reset" position
-        if key in cache:
-            cache.pop(key)
-        # If key is new AND cache is full, evict the oldest
-        elif len(cache) >= N:
-            oldest = next(iter(cache))
-            cache.pop(oldest)
-            print(f"Evicted: {oldest}")
-
-        cache[key] = val
-        print(f"Stored: {key}")
-
-    elif action == "a":
-        key = input("Enter key to access: ")
-        if key in cache:
-            # THE "LRU SECRET": Pop and re-add to make it the NEWEST
-            value = cache.pop(key)
-            cache[key] = value
-            print(f"Value: {value}")
-        else:
-            print("Error: Key not found!")
-
-print(f"Final Cache State: {cache}")
