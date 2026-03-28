@@ -1,7 +1,7 @@
 import pandas as pd
 
 # for reading CSV files
-df = pd.read_csv("sales_data_sample.csv", encoding="latin1")
+df = pd.read_orc("sales_data_sample.csv", encoding="latin1")
 print(df)
 print("=================================================================================")
 
